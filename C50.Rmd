@@ -1,0 +1,38 @@
+---
+title: "C50"
+author: "raj"
+date: "29 September 2015"
+output: html_document
+---
+This code loads the required packages:
+
+```{r}
+library(C50)
+library(printr)
+```
+
+This code takes a sample of 100 rows from the iris dataset:
+```{r}
+train.indices <- sample(1:nrow(iris), 100)
+iris.train <- iris[train.indices,]
+iris.test <- iris[-train.indices,]
+```
+
+This code trains a model based on the training data:
+```{r}
+model <- C5.0(Species ~ ., data = iris.train)
+```
+---
+tilde means depends. here Species depends on all other cols
+---
+
+This code tests the model using the test data:
+ 
+```{r}
+results <- predict(object = model, newdata = iris.test, type="class")
+```
+
+This code generates a confusion matrix
+```{r}
+table(results, iris.test$Species)
+```
